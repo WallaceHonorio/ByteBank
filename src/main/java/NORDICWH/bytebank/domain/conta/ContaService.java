@@ -75,4 +75,15 @@ public class ContaService {
                 .findFirst()
                 .orElseThrow(() -> new RegraDeNegocioException("Não existe conta cadastrada com esse número!"));
     }
+
+    public Conta listarConta(int numeroDaConta) {
+        Connection conn = connection.recuperarConexao();
+        Conta conta =  new ContaDAO(conn).listarPorNumero(numeroDaConta);
+
+        if(conta != null) {
+            return conta;
+        } else {
+            throw new RegraDeNegocioException("Não existe conta cadastrada com esse número!");
+        }
+    }
 }

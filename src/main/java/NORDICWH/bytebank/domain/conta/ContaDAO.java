@@ -78,4 +78,39 @@ public class ContaDAO {
 
         return contas;
     }
+
+    public Conta listarPorNumero(int numeroDaConta) {
+        Conta conta = null;
+        PreparedStatement ps;
+        ResultSet resultSet;
+
+        String sql = "SELECT * FROM conta WHERE numero = ?";
+
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, numeroDaConta);
+            resultSet = ps.executeQuery();
+
+            while(resultSet.next()){
+                BigDecimal saldo = resultSet.getBigDecimal(2);
+                String nome = resultSet.getString(3);
+                String cpf = resultSet.getString(4);
+                String email = resultSet.getString(5);
+
+                DadosCadastroCliente dadosCadastroCliente = new DadosCadastroCliente(nome,cpf,email);
+                Cliente cliente = new Cliente(dadosCadastroCliente);
+
+                conta = new Conta(numeroDaConta, cliente, saldo);
+            }
+
+            resultSet.close();
+            ps.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return conta;
+    }
 }
