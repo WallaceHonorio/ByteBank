@@ -17,6 +17,7 @@ public class Conta {
         this.saldo = BigDecimal.ZERO;
     }
 
+
     public boolean possuiSaldo() {
         return this.saldo.compareTo(BigDecimal.ZERO) != 0;
     }
