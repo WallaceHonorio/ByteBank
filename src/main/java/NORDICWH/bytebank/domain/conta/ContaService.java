@@ -2,13 +2,9 @@ package NORDICWH.bytebank.domain.conta;
 
 import NORDICWH.bytebank.domain.ConnectionFactory;
 import NORDICWH.bytebank.domain.RegraDeNegocioException;
-import NORDICWH.bytebank.domain.cliente.Cliente;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.HashSet;
 import java.util.Set;
 
 public class ContaService {
