@@ -65,7 +65,7 @@ public class ContaDAO {
                 DadosCadastroCliente dadosCadastroCliente = new DadosCadastroCliente(nome,cpf,email);
                 Cliente cliente = new Cliente(dadosCadastroCliente);
 
-                contas.add(new Conta(numero,cliente));
+                contas.add(new Conta(numero,cliente,saldo));
             }
 
             resultSet.close();
@@ -126,6 +126,27 @@ public class ContaDAO {
 
             preparedStatement.setBigDecimal(1, valor);
             preparedStatement.setInt(2, conta.getNumero());
+
+            preparedStatement.execute();
+            preparedStatement.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void delete(int numeroDaConta) {
+        PreparedStatement ps;
+        ResultSet resultSet;
+
+        String sql = "DELETE FROM conta WHERE numero = ?";
+
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = conn.prepareStatement(sql);
+
+            preparedStatement.setInt(1, numeroDaConta);
 
             preparedStatement.execute();
             preparedStatement.close();

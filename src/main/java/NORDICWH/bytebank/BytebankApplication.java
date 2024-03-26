@@ -14,7 +14,7 @@ public class BytebankApplication {
 
     public static void main(String[] args) {
         var opcao = exibirMenu();
-        while (opcao != 8) {
+        while (opcao != 9) {
             try {
                 switch (opcao) {
                     case 1:
@@ -38,6 +38,9 @@ public class BytebankApplication {
                     case 7:
                         listarConta();
                         break;
+                    case 8:
+                        realizarTransferencia();
+                        break;
                 }
             } catch (RegraDeNegocioException e) {
                 System.out.println("Erro: " +e.getMessage());
@@ -60,7 +63,8 @@ public class BytebankApplication {
                 5 - Realizar saque em uma conta
                 6 - Realizar depósito em uma conta
                 7 - Listar conta por número
-                8 - Sair
+                8 - Realizar transferencia
+                9 - Sair
                 """);
         return teclado.nextInt();
     }
@@ -138,6 +142,23 @@ public class BytebankApplication {
         service.realizarDeposito(numeroDaConta, valor);
 
         System.out.println("Depósito realizado com sucesso!");
+        System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu principal");
+        teclado.next();
+    }
+
+    private static void realizarTransferencia() {
+        System.out.println("Digite o número da conta de origem:");
+        var numeroContaOrigem = teclado.nextInt();
+
+        System.out.println("Digite o número da conta de destino:");
+        var numeroContaDestino = teclado.nextInt();
+
+        System.out.println("Digite o valor do depósito:");
+        var valor = teclado.nextBigDecimal();
+
+        service.realizarTransferencia(numeroContaOrigem, numeroContaDestino, valor);
+
+        System.out.println("Transferencia realizado com sucesso!");
         System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu principal");
         teclado.next();
     }

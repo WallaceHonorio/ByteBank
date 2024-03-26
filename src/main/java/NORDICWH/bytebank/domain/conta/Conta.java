@@ -23,11 +23,9 @@ public class Conta {
         this.saldo = saldo;
     }
 
-
     public boolean possuiSaldo() {
         return this.saldo.compareTo(BigDecimal.ZERO) != 0;
     }
-
 
     @Override
     public boolean equals(Object o) {
